@@ -1,7 +1,8 @@
 package main
 
-import(
+import (
 	"fmt"
+	"os"
 )
 
 type cliCommand struct {
@@ -28,11 +29,17 @@ func GetCommands() map[string]cliCommand {
 func commandHelp() error {
 	fmt.Print(
 `
-		
+Welcome to the Pokedex!
+Usage:
+
+help: Displays a help message
+exit: Exit the Pokedex
 `,
-	)
+	) 
+	return nil
 }
 
 func commandExit() error {
-
+	os.Exit(0)
+	return nil
 }
