@@ -28,8 +28,8 @@ func GetCommands() map[string]cliCommand {
 func commandHelp() error {
 	fmt.Print(
 `
-
-`
+		
+`,
 	)
 }
 
