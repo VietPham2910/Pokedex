@@ -2,18 +2,10 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/VietPham2910/Pokedex/internal/pokeapi"
 )
 
-type config struct {
-	httpClient pokeapi.Client
-	nextLocationUrl     string
-	previousLocationUrl string
-}
-
-func commandMapf(cfg *config) error {
-	locations, err := cfg.httpClient.FetchPoke(cfg.nextLocationUrl)
+func commandMapf(cfg *config, args ...string) error {
+	locations, err := cfg.httpClient.FetchLocAreas(cfg.nextLocationUrl)
 	if err != nil{
 		return fmt.Errorf("poke Api fetching error: %v", err)
 	}
@@ -32,11 +24,11 @@ func commandMapf(cfg *config) error {
 	return nil
 }
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, args ...string) error {
 	if cfg.previousLocationUrl == ""{
 		return fmt.Errorf("empty previous path")
 	}
-	locations, err := cfg.httpClient.FetchPoke(cfg.previousLocationUrl)
+	locations, err := cfg.httpClient.FetchLocAreas(cfg.previousLocationUrl)
 	if err != nil{
 		return fmt.Errorf("poke Api fetching error: %v", err)
 	}

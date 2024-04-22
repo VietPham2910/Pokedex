@@ -1,3 +1,4 @@
 package pokeapi
 
-const EndpointUrl string = "https://pokeapi.co/api/v2/location-area/"
+const LocationUrl string = "https://pokeapi.co/api/v2/location-area/"
+const PokemonUrl string = "https://pokeapi.co/api/v2/pokemon/"
