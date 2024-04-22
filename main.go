@@ -1,25 +1,14 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
+	"github.com/VietPham2910/Pokedex/internal/pokeapi"
 )
 
-func main(){
-	scanner := bufio.NewScanner(os.Stdin)
-	commands := GetCommands()
-	for{
-		fmt.Print("pokedex > ")
-		for scanner.Scan(){
-			text := scanner.Text()
-			if command, ok := commands[text]; ok{
-				command.callback()
-			} else{
-				fmt.Print("Command not found!")
-			}
-			fmt.Print("\n")
-			break
-		}
+func main() {
+	cfg := &config{
+		pokeEndpointUrl: pokeapi.EndpointUrl,
+		nextLocationUrl: pokeapi.EndpointUrl,
+		previousLocationUrl: "",
 	}
+	startRepl(cfg)
 }
