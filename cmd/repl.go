@@ -1,16 +1,37 @@
-package main
+package cmd
 
 import (
 	"bufio"
 	"fmt"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/VietPham2910/Pokedex/internal"
+	"github.com/VietPham2910/Pokedex/internal/pokeapi"
 )
+
+type config struct {
+	httpClient pokeapi.Client
+	nextLocationUrl     string
+	previousLocationUrl string
+	pokedex internal.Pokedex
+}
 
 type cliCommand struct {
 	name        string
 	description string
 	callback    func(*config, ...string) error
+}
+
+func NewConfig() *config{
+	return &config{
+		httpClient: *pokeapi.NewClient(time.Second * 5, time.Minute * 5),
+		nextLocationUrl: pokeapi.LocationUrl,
+		pokedex: internal.Pokedex{
+			Pokemons: make(map[string]pokeapi.Pokemon),
+		},
+	}
 }
 
 func getCommands() map[string]cliCommand {
@@ -59,7 +80,8 @@ func cleanInput(text string) []string {
 	return words
 }
 
-func startRepl(cfg *config){
+func StartRepl(){
+	cfg := NewConfig()
 	scanner := bufio.NewScanner(os.Stdin)
 	for{
 		fmt.Print("pokedex > ")
