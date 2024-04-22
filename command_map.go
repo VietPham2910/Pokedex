@@ -7,13 +7,13 @@ import (
 )
 
 type config struct {
-	pokeEndpointUrl     string
+	httpClient pokeapi.Client
 	nextLocationUrl     string
 	previousLocationUrl string
 }
 
 func commandMapf(cfg *config) error {
-	locations, err := pokeapi.FetchPoke(cfg.nextLocationUrl)
+	locations, err := cfg.httpClient.FetchPoke(cfg.nextLocationUrl)
 	if err != nil{
 		return fmt.Errorf("poke Api fetching error: %v", err)
 	}
@@ -36,7 +36,7 @@ func commandMapb(cfg *config) error {
 	if cfg.previousLocationUrl == ""{
 		return fmt.Errorf("empty previous path")
 	}
-	locations, err := pokeapi.FetchPoke(cfg.previousLocationUrl)
+	locations, err := cfg.httpClient.FetchPoke(cfg.previousLocationUrl)
 	if err != nil{
 		return fmt.Errorf("poke Api fetching error: %v", err)
 	}

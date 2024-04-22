@@ -1,14 +1,15 @@
 package main
 
 import (
+	"time"
+
 	"github.com/VietPham2910/Pokedex/internal/pokeapi"
 )
 
 func main() {
 	cfg := &config{
-		pokeEndpointUrl: pokeapi.EndpointUrl,
+		httpClient: *pokeapi.NewClient(time.Second * 5, time.Minute * 5),
 		nextLocationUrl: pokeapi.EndpointUrl,
-		previousLocationUrl: "",
 	}
 	startRepl(cfg)
 }
